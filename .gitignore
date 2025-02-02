@@ -1,0 +1,20 @@
+# Ignore all .log files
+*.log
+
+# Ignore the node_modules folder
+node_modules/
+
+# Ignore .env files (for API keys)
+.env
+
+# Ignore the download folder
+download/
+
+# Ignore pycache
+__pycache__/
+
+# Ignore the .venv folder
+.venv/
+
+#Ignore config folder
+config/
