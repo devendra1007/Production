@@ -313,23 +313,23 @@ def daily_call_date_range():
     current_time = now.time()
 
     # Monday AM Rule
-    if weekday == 0 and (current_time.hour < 11 or (current_time.hour == 11 and current_time.minute <= 30)):
+    if weekday == 0 and current_time.hour < 12:
         start_date = now - timedelta(days=3)  # Go back to Friday
         start_date = start_date.replace(hour=11, minute=30)
         end_date = now.replace(hour=11, minute=29)
     
     # Tuesday through Thursday AM Rule
-    elif weekday in [1, 2, 3] and (current_time.hour < 11 or (current_time.hour == 11 and current_time.minute <= 30)):
+    elif weekday in [1, 2, 3] and current_time.hour < 12:
         start_date = (now - timedelta(days=1)).replace(hour=15, minute=30)
         end_date = now.replace(hour=11, minute=29)
     
     # Monday through Thursday PM Rule
-    elif weekday in [0, 1, 2, 3] and current_time.hour >= 15 and current_time.minute >= 30:
+    elif weekday in [0, 1, 2, 3] and current_time.hour >= 16:
         start_date = now.replace(hour=11, minute=30)
         end_date = now.replace(hour=15, minute=29)
     
     # Friday AM Rule
-    elif weekday == 4 and current_time.hour < 11:
+    elif weekday == 4 and current_time.hour < 12:
         start_date = (now - timedelta(days=1)).replace(hour=15, minute=30)
         end_date = now.replace(hour=11, minute=29)
     
