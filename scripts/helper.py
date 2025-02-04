@@ -315,35 +315,38 @@ def daily_call_date_range():
     # Monday AM Rule
     if weekday == 0 and current_time.hour < 12:
         start_date = now - timedelta(days=3)  # Go back to Friday
-        start_date = start_date.replace(hour=11, minute=30)
-        end_date = now.replace(hour=11, minute=29)
+        start_date = start_date.replace(hour=11, minute=0, second=0)
+        end_date = now.replace(hour=11, minute=0, second=0)
     
     # Tuesday through Thursday AM Rule
     elif weekday in [1, 2, 3] and current_time.hour < 12:
-        start_date = (now - timedelta(days=1)).replace(hour=15, minute=30)
-        end_date = now.replace(hour=11, minute=29)
+        start_date = (now - timedelta(days=1)).replace(hour=15, minute=0, second=0)
+        end_date = now.replace(hour=11, minute=0, second=0)
     
     # Monday through Thursday PM Rule
-    elif weekday in [0, 1, 2, 3] and current_time.hour >= 16:
-        start_date = now.replace(hour=11, minute=30)
-        end_date = now.replace(hour=15, minute=29)
+    elif weekday in [0, 1, 2, 3] and current_time.hour < 16:
+        start_date = now.replace(hour=11, minute=0, second=0)
+        end_date = now.replace(hour=15, minute=0, second=0)
     
     # Friday AM Rule
     elif weekday == 4 and current_time.hour < 12:
-        start_date = (now - timedelta(days=1)).replace(hour=15, minute=30)
-        end_date = now.replace(hour=11, minute=29)
+        start_date = (now - timedelta(days=1)).replace(hour=15, minute=0, second=0)
+        end_date = now.replace(hour=11, minute=0, second=0)
     
     # Default case (1 day and 15 min before now)
     else:
-        end_date = now
-        start_date = end_date - timedelta(days=1, minutes=15)
+        end_date = now.replace(hour=15, minute=0, second=0)
+        start_date = (now - timedelta(days=1)).replace(hour=15, minute=0, second=0)
 
-    # Format dates in EST
-    From = start_date.strftime('%m/%d/%Y %I:%M %p')
-    To = end_date.strftime('%m/%d/%Y %I:%M %p')
+    # Format dates and times separately in EST
+    From_Date = start_date.strftime('%m/%d/%Y')
+    From_Time = start_date.strftime('%H:%M:%S')
+    To_Date = end_date.strftime('%m/%d/%Y')
+    To_Time = end_date.strftime('%H:%M:%S')
 
-    return From, To
-
+    return From_Date, From_Time, To_Date, To_Time
+  
+    
 # ===========================
 # Text Input Utilities
 # ===========================
