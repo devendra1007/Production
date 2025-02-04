@@ -12,8 +12,8 @@ def main():
         browser, playwright, page = launch_browser(headless=True)
         daily_call_comtech_report(page,browser,playwright)
         daily_abonded_download = os.path.join(download_dir, 'daily_abonded_calls.csv')
-        # google_data_upload(daily_abonded_download,'Data',call_reporting)
-        # logging.info('Daily Abonded Call Reporting Complete')
+        google_data_upload(daily_abonded_download,'Data',call_reporting)
+        logging.info('Daily Abonded Call Reporting Complete')
         
     except Exception as e:
         logging.error(f"An error occurred in the main function: {e}")
