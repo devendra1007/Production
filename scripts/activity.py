@@ -123,16 +123,15 @@ def daily_call_comtech_report(page,browser,playwright):
         fill_with_delay(page, 'input[placeholder="Password"]', os.getenv("COMTEC_PASSWORD"))
         page.get_by_role("button", name="Log In").click()
         logging.info("Successfully logged into Comtech")
-
-        page.get_by_role("link", name="Call Center").click()
+        wait_for_page_load(page,timeout=120000)
+        page.get_by_role("link", name="Call Center").wait_for(state="visible", timeout=60000)
+        page.get_by_role("link", name="Call Center").click(timeout=60000)
         wait_for_page_load(page,timeout=120000)
         logging.info("Navigated to Call Center section")
-
         page.get_by_role("button", name="Reports").click()
         page.wait_for_timeout(9000)
         page.locator("#stat_type").select_option("abandoned")
         logging.info("Selected abandoned calls report type")
-
         from_date,from_time,to_date,to_time = daily_call_date_range()
         logging.info(f"Setting date range - From: {from_date} {from_time} To: {to_date} {to_time}")
         page.locator("#modal-from-0").click()
