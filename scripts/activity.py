@@ -124,8 +124,10 @@ def daily_call_comtech_report(page,browser,playwright):
         page.get_by_role("button", name="Log In").click()
         logging.info("Successfully logged into Comtech")
         wait_for_page_load(page,timeout=120000)
-        page.get_by_role("link", name="Call Center").wait_for(state="visible", timeout=60000)
-        page.get_by_role("link", name="Call Center").click(timeout=60000)
+        # Try multiple selectors to find and click the Call Center link
+        call_center = page.locator('a:has-text("Call Center"), [href*="call-center"], [data-module="call-center"]').first
+        call_center.wait_for(state="visible", timeout=60000)
+        call_center.click(timeout=60000)
         wait_for_page_load(page,timeout=120000)
         logging.info("Navigated to Call Center section")
         page.get_by_role("button", name="Reports").click()
