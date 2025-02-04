@@ -11,7 +11,7 @@ def main():
         logging.info('Daily Abonded Calls Reporting')
         browser, playwright, page = launch_browser(headless=True)
         daily_call_comtech_report(page,browser,playwright)
-        daily_abonded_download = os.path.join(download_dir, 'daily_abonded_calls.csv')
+        daily_abonded_download = os.path.join(download_dir, 'daily_abandoned_calls.csv')
         google_data_upload(daily_abonded_download,'Data',call_reporting)
         logging.info('Daily Abonded Call Reporting Complete')
         
