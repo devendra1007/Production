@@ -6,6 +6,7 @@ node_modules/
 
 # Ignore .env files (for API keys)
 .env
+.env.test
 
 # Ignore the download folder
 download/
